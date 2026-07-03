@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Let's Connect · Contact</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f6f9fc 0%, #e9f2f7 100%);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      margin: 0;
+    }
+
+    .contact-card {
+      max-width: 1200px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 3.5rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 20, 30, 0.25),
+                  inset 0 1px 2px rgba(255, 255, 255, 0.7);
+      padding: 2.5rem 2.8rem;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 2.5rem;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .info-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .info-panel h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #0b2a3c;
+      margin-bottom: 0.4rem;
+    }
+
+    .info-panel .subhead {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #2c4a5e;
+      opacity: 0.85;
+      max-width: 90%;
+      font-weight: 400;
+      margin-bottom: 0.25rem;
+    }
+
+    .divider-light {
+      width: 60px;
+      height: 4px;
+      background: #2f7b9c;
+      border-radius: 12px;
+      margin: 0.5rem 0 1rem 0;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin: 0.8rem 0;
+    }
+
+    .contact-item i {
+      width: 1.6rem;
+      font-size: 1.3rem;
+      color: #1e5d7a;
+      margin-top: 0.1rem;
+    }
+
+    .contact-item .detail {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-item .label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #3a5b6e;
+      opacity: 0.7;
+    }
+
+    .contact-item .value {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #0b2a3c;
+      word-break: break-word;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1.2rem;
+      align-items: center;
+    }
+
+    .social-links a {
+      color: #1e3b4b;
+      font-size: 1.9rem;
+      transition: all 0.2s ease;
+      opacity: 0.7;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .social-links a:hover {
+      color: #0f2f40;
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+
+    .social-links .fa-linkedin-in { font-size: 1.8rem; }
+    .social-links .fa-github { font-size: 2rem; }
+    .social-links .fa-facebook { font-size: 1.8rem; }
+
+    .form-panel {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      border-radius: 2.5rem;
+      padding: 2rem 2.2rem;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.02), 0 12px 24px -12px rgba(0,20,30,0.12);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .form-panel h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #0b2a3c;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.8rem;
+      border-bottom: 2px solid rgba(32, 96, 128, 0.15);
+      padding-bottom: 0.6rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #1e475e;
+      margin-bottom: 0.25rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1.2rem;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      border: 1px solid rgba(60, 110, 140, 0.2);
+      border-radius: 2rem;
+      outline: none;
+      transition: all 0.2s ease;
+      color: #0b2a3c;
+      font-family: inherit;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #2f7b9c;
+      background: white;
+      box-shadow: 0 0 0 4px rgba(47, 123, 156, 0.15);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: #7f9aaa;
+      font-weight: 300;
+      opacity: 0.7;
+    }
+
+    .form-group textarea {
+      min-height: 110px;
+      resize: vertical;
+      border-radius: 1.8rem;
+    }
+
+    .send-btn {
+      background: #1a4b61;
+      border: none;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.9rem 2.8rem;
+      border-radius: 3rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 8px 18px -6px rgba(18, 67, 92, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      letter-spacing: 0.01em;
+      margin-top: 0.5rem;
+    }
+
+    .send-btn i {
+      font-size: 1.1rem;
+      transition: transform 0.2s ease;
+    }
+
+    .send-btn:hover {
+      background: #0f3b4f;
+      transform: scale(1.01);
+      box-shadow: 0 12px 24px -8px rgba(18, 67, 92, 0.4);
+    }
+
+    .send-btn:hover i {
+      transform: translateX(4px);
+    }
+
+    .send-btn:active {
+      transform: scale(0.97);
+    }
+
+    #form-status {
+      margin-top: 1.2rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #1c6f4a;
+      background: rgba(28, 111, 74, 0.08);
+      padding: 0.5rem 1.2rem;
+      border-radius: 3rem;
+      display: inline-block;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      border: 1px solid rgba(28, 111, 74, 0.1);
+    }
+
+    #form-status.show {
+      opacity: 1;
+    }
+
+    @media (max-width: 850px) {
+      .contact-card {
+        grid-template-columns: 1fr;
+        padding: 2rem 1.5rem;
+        gap: 2rem;
+        border-radius: 2.5rem;
+      }
+
+      .info-panel .subhead {
+        max-width: 100%;
+      }
+
+      .form-panel {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .contact-card {
+        padding: 1.5rem 1rem;
+      }
+      .info-panel h1 {
+        font-size: 1.8rem;
+      }
+      .social-links {
+        gap: 1.5rem;
+      }
+      .send-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    .inline-social {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      margin-top: 0.2rem;
+    }
+    .inline-social span {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #1e475e;
+      opacity: 0.6;
+      letter-spacing: 0.02em;
+    }
+    .inline-social i {
+      font-size: 1.5rem;
+      color: #1e475e;
+      opacity: 0.5;
+    }
+
+    .social-links .social-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #1e475e;
+      opacity: 0.5;
+      margin-right: 0.25rem;
+    }
+
+    .social-links a[title] {
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+<div class="contact-card">
+
+  <div class="info-panel">
+    <div>
+      <h1>Let's Connect</h1>
+      <p class="subhead">
+        Have a question, project idea, or just want to say hello? Fill out the form and I'll get back to you as soon as possible.
+      </p>
+      <div class="divider-light"></div>
+    </div>
+
+    <div>
+      <div class="contact-item">
+        <i class="fas fa-map-pin"></i>
+        <div class="detail">
+          <span class="label">Location</span>
+          <span class="value">Vehari, Punjab, Pakistan</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <div class="detail">
+          <span class="label">Email</span>
+          <span class="value">ayshanasir234@gmail.com</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-phone-alt"></i>
+        <div class="detail">
+          <span class="label">Phone</span>
+          <span class="value">03260426248</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/ayesha-bibi-734ab73b5?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://github.com/ashimoon123/ayeshabibiwebinternshiprempte" target="_blank" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.facebook.com/share/1CkmeFLjGB/" target="_blank" aria-label="Facebook" title="Facebook"><i class="fab fa-facebook"></i></a>
+    </div>
+    <div style="display: flex; gap: 0.75rem; margin-top: -0.5rem; align-items: center; opacity: 0.5; font-size: 0.75rem; letter-spacing: 0.04em; color: #1f4b5e;">
+      <span>in</span> <span style="font-weight: 300;">·</span> <span>gh</span> <span style="font-weight: 300;">·</span> <span>fb</span>
+    </div>
+  </div>
+
+  <div class="form-panel">
+    <h2>Send a Message</h2>
+    <form id="contactForm" action="#" method="POST">
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" name="fullName" placeholder="Your full name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="What's this about?" required>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+      </div>
+
+      <button type="submit" class="send-btn">
+        <i class="fas fa-paper-plane"></i> Send Message
+      </button>
+
+      <div id="form-status"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const form = document.getElementById('contactForm');
+    const statusDiv = document.getElementById('form-status');
+
+    function setStatus(message, isSuccess = true) {
+      statusDiv.textContent = message;
+      statusDiv.style.color = isSuccess ? '#1c6f4a' : '#b13e3e';
+      statusDiv.style.borderColor = isSuccess ? 'rgba(28, 111, 74, 0.2)' : 'rgba(177, 62, 62, 0.2)';
+      statusDiv.style.background = isSuccess ? 'rgba(28, 111, 74, 0.08)' : 'rgba(177, 62, 62, 0.08)';
+      statusDiv.classList.add('show');
+    }
+
+    function clearStatusAfterDelay() {
+      setTimeout(() => {
+        statusDiv.classList.remove('show');
+      }, 6000);
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const fullName = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!fullName || !email || !subject || !message) {
+        setStatus('⚠️ Please fill in all fields.', false);
+        clearStatusAfterDelay();
+        return;
+      }
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        setStatus('⚠️ Please enter a valid email address.', false);
+        clearStatusAfterDelay();
+        return;
+      }
+
+      const payload = {
+        name: fullName,
+        email: email,
+        subject: subject,
+        message: message
+      };
+
+      console.log('📨 Form submitted (simulated):', payload);
+
+      setStatus('✅ Your message was sent! (demo) I\'ll reply soon.', true);
+      form.reset();
+      clearStatusAfterDelay();
+    });
+  })();
+</script>
+
+</body>
+</html>
