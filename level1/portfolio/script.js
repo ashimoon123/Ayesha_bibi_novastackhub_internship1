@@ -265,3 +265,30 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+
+/* ---- 9. CV MODAL ---- */
+(function () {
+    const openBtn = document.getElementById('downloadCvBtn');
+    const modal = document.getElementById('cvModal');
+    const closeBtn = document.getElementById('cvModalClose');
+    const backdrop = document.getElementById('cvModalBackdrop');
+
+    if (!openBtn || !modal || !closeBtn || !backdrop) return;
+
+    function toggleModal(isOpen) {
+        modal.classList.toggle('open', isOpen);
+        modal.setAttribute('aria-hidden', String(!isOpen));
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+
+    openBtn.addEventListener('click', () => toggleModal(true));
+    closeBtn.addEventListener('click', () => toggleModal(false));
+    backdrop.addEventListener('click', () => toggleModal(false));
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('open')) {
+            toggleModal(false);
+        }
+    });
+})();

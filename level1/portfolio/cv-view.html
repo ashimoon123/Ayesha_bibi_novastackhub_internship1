@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ayesha Bibi | CV</title>
+    <style>
+        :root {
+            --bg: #e9edf2;
+            --paper: #f7f9fb;
+            --sidebar: #1b2630;
+            --accent: #18a9d8;
+            --text: #0f1720;
+            --muted: #415160;
+            --line: #6d7681;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.55;
+            padding: 24px;
+        }
+
+        .toolbar {
+            max-width: 1120px;
+            margin: 0 auto 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-text {
+            color: #334155;
+            font-weight: 700;
+        }
+
+        .toolbar-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-actions a,
+        .toolbar-actions button {
+            text-decoration: none;
+            border-radius: 999px;
+            padding: 12px 18px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid #c9d2dc;
+            background: #fff;
+            color: #102132;
+        }
+
+        .toolbar-actions .primary {
+            background: #102132;
+            color: #fff;
+            border-color: #102132;
+        }
+
+        .cv-page {
+            max-width: 1120px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: 0 24px 65px rgba(15, 23, 32, 0.18);
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            min-height: 1400px;
+        }
+
+        .sidebar {
+            background: var(--sidebar);
+            color: #fff;
+            padding: 34px 24px;
+        }
+
+        .avatar-wrap {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 34px;
+        }
+
+        .avatar {
+            width: 112px;
+            height: 160px;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.08);
+            background: #253443;
+        }
+
+        .sidebar-section {
+            margin-bottom: 28px;
+        }
+
+        .sidebar-title {
+            color: #19b5e5;
+            font-size: 1.45rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-line {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            margin-bottom: 14px;
+        }
+
+        .label {
+            font-size: 0.82rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .value {
+            font-size: 0.93rem;
+            margin-bottom: 12px;
+            color: #eef3f8;
+        }
+
+        .list {
+            list-style: disc;
+            padding-left: 18px;
+        }
+
+        .list li {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .main {
+            padding: 48px 42px;
+        }
+
+        .name {
+            font-size: 3.3rem;
+            font-weight: 900;
+            letter-spacing: 0.02em;
+            margin-bottom: 8px;
+        }
+
+        .headline {
+            color: #22a9ef;
+            font-size: 1.34rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 26px;
+        }
+
+        .section {
+            margin-bottom: 28px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 12px;
+            border-bottom: 2px solid var(--line);
+            padding-bottom: 7px;
+            margin-bottom: 14px;
+        }
+
+        .section-header h2 {
+            font-size: 1.65rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .profile-text,
+        .entry-desc,
+        .entry-sub {
+            color: #253746;
+            font-size: 1rem;
+        }
+
+        .education-item,
+        .project-item {
+            margin-bottom: 18px;
+        }
+
+        .row-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 2px;
+        }
+
+        .row-head h3 {
+            font-size: 1.18rem;
+            font-weight: 900;
+        }
+
+        .tag,
+        .year {
+            color: #22a9ef;
+            font-size: 0.95rem;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .entry-sub {
+            font-style: italic;
+            margin-bottom: 6px;
+        }
+
+        .bullets {
+            list-style: disc;
+            padding-left: 18px;
+        }
+
+        .bullets li {
+            margin-bottom: 7px;
+        }
+
+        @media (max-width: 900px) {
+            .cv-page {
+                grid-template-columns: 1fr;
+            }
+
+            .main {
+                padding: 32px 24px;
+            }
+
+            .name {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+            }
+
+            .toolbar {
+                display: none;
+            }
+
+            .cv-page {
+                box-shadow: none;
+                max-width: none;
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="toolbar">
+        <p class="toolbar-text">Online CV preview</p>
+        <div class="toolbar-actions">
+            <a href="index.html">Back to Portfolio</a>
+            <a href="cv.pdf" class="primary" download="Ayesha-Bibi-CV.pdf">Download PDF</a>
+            <button type="button" onclick="window.print()">Print / Save PDF</button>
+        </div>
+    </div>
+
+    <main class="cv-page">
+        <aside class="sidebar">
+            <div class="avatar-wrap">
+                <img src="profile.jpg" alt="Ayesha Bibi" class="avatar" />
+            </div>
+
+            <section class="sidebar-section">
+                <h2 class="sidebar-title">CONTACT INFO</h2>
+                <div class="sidebar-line"></div>
+                <p class="label">LOCATION</p>
+                <p class="value">Lahore, Pakistan</p>
+                <p class="label">PHONE</p>
+                <p class="value">+92-326-0426248<br />+92-322-1710072</p>
+                <p class="label">EMAIL</p>
+                <p class="value">ayshanasir234@gmail.com</p>
+            </section>
+
+            <section class="sidebar-section">
+                <h2 class="sidebar-title">CORE SKILLS</h2>
+                <div class="sidebar-line"></div>
+                <ul class="list">
+                    <li>JavaScript, Python, Java</li>
+                    <li>C++, HTML5, CSS3</li>
+                    <li>Bootstrap Framework</li>
+                    <li>Flutter (Mobile UI)</li>
+                    <li>MS Office Productivity</li>
+                </ul>
+            </section>
+
+            <section class="sidebar-section">
+                <h2 class="sidebar-title">CO-CURRICULARS</h2>
+                <div class="sidebar-line"></div>
+                <ul class="list">
+                    <li>Entrepreneurship Forum &amp; Seminar (2024)</li>
+                    <li>Active Health &amp; Awareness Campaign (2023)</li>
+                    <li>Team Fitness Workshop (2023)</li>
+                </ul>
+            </section>
+        </aside>
+
+        <section class="main">
+            <header>
+                <h1 class="name">AYESHA BIBI</h1>
+                <p class="headline">SOFTWARE ENGINEERING STUDENT &amp; WEB DEVELOPER</p>
+            </header>
+
+            <section class="section">
+                <div class="section-header">
+                    <h2>Professional Profile</h2>
+                </div>
+                <p class="profile-text">
+                    Motivated and detail-oriented Software Engineering student at COMSATS University Islamabad with a deep
+                    technical foundation in software development, core programming paradigms, and modern web architectures.
+                    Actively seeking a challenging entry-level role or internship to apply clean coding methodologies,
+                    master emerging frameworks, and drive functional business solutions in an agile industry ecosystem.
+                </p>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <h2>Education</h2>
+                </div>
+
+                <div class="education-item">
+                    <div class="row-head">
+                        <h3>BS Software Engineering</h3>
+                        <span class="year">2023-Current</span>
+                    </div>
+                    <p class="entry-sub">COMSATS University Islamabad (Vehari Campus)</p>
+                </div>
+
+                <div class="education-item">
+                    <div class="row-head">
+                        <h3>Intermediate (HSC)</h3>
+                        <span class="year">2022-2023</span>
+                    </div>
+                    <p class="entry-sub">Govt. College for Women, Vehari</p>
+                </div>
+
+                <div class="education-item">
+                    <div class="row-head">
+                        <h3>Matriculation (SSC)</h3>
+                        <span class="year">2020-2021</span>
+                    </div>
+                    <p class="entry-sub">Govt. Girls High School, Vehari</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <h2>Academic Projects</h2>
+                </div>
+
+                <div class="project-item">
+                    <div class="row-head">
+                        <h3>Ride Booking System</h3>
+                        <span class="tag">Database &amp; Core Dev</span>
+                    </div>
+                    <ul class="bullets">
+                        <li>Architected a comprehensive desktop application featuring custom customer models and real-time localized ride scheduling parameters.</li>
+                        <li>Implemented active dynamic structural logs and automated payment verification checks using core relational database management concepts.</li>
+                    </ul>
+                </div>
+
+                <div class="project-item">
+                    <div class="row-head">
+                        <h3>Personal Portfolio Website</h3>
+                        <span class="tag">Web Front-end</span>
+                    </div>
+                    <ul class="bullets">
+                        <li>Designed, debugged, and launched an interactive user portfolio utilizing HTML5, CSS3, modern JavaScript, and Bootstrap.</li>
+                        <li>Achieved flawless mobile responsiveness and performance optimization.</li>
+                    </ul>
+                </div>
+
+                <div class="project-item">
+                    <div class="row-head">
+                        <h3>Basic Calculator Application</h3>
+                        <span class="tag">UI/UX Design</span>
+                    </div>
+                    <ul class="bullets">
+                        <li>Engineered a standalone mathematical processing engine built using intuitive algorithmic structures.</li>
+                        <li>Computed logical arithmetic validation queries on a minimalist interface.</li>
+                    </ul>
+                </div>
+            </section>
+        </section>
+    </main>
+</body>
+</html>
