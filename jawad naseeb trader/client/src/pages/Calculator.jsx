@@ -52,7 +52,7 @@ const Calculator = () => {
                   className="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-8 pr-4 py-3 text-base font-bold text-slate-900 focus:outline-none focus:border-purple-500"
                 />
               </div>
-              <span className="text-xs text-slate-400 mt-1 block">˜ {investmentPKR.toLocaleString(undefined, { maximumFractionDigits: 0 })} PKR</span>
+              <span className="text-xs text-slate-400 mt-1 block">Ëœ {investmentPKR.toLocaleString(undefined, { maximumFractionDigits: 0 })} PKR</span>
             </div>
 
             <div>
@@ -102,7 +102,7 @@ const Calculator = () => {
                   ${profitLossUSD.toLocaleString(undefined, { maximumFractionDigits: 2 })}
                 </span>
                 <span className="text-[10px] text-slate-400 block mt-1">
-                  ˜ {profitLossPKR.toLocaleString(undefined, { maximumFractionDigits: 0 })} PKR
+                  Ëœ {profitLossPKR.toLocaleString(undefined, { maximumFractionDigits: 0 })} PKR
                 </span>
               </div>
 

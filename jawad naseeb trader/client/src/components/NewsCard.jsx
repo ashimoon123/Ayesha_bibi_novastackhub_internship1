@@ -32,7 +32,7 @@ const NewsCard = ({ article }) => {
               <Calendar className="h-3.5 w-3.5 text-purple-500" />
               {new Date(article.createdAt || Date.now()).toLocaleDateString()}
             </span>
-            <span>•</span>
+            <span>ï¿½</span>
             <span className="flex items-center gap-1">
               <User className="h-3.5 w-3.5 text-indigo-500" />
               {article.author || 'Jawad Naseeb Team'}

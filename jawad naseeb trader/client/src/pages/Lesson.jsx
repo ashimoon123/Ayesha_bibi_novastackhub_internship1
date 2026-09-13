@@ -41,7 +41,7 @@ const Lesson = () => {
                 <PlayCircle className="h-8 w-8 text-white" />
               </div>
               <h3 className="font-bold text-lg">{mockLesson.title}</h3>
-              <p className="text-xs text-slate-400">Video Lesson • Jawad Naseeb Education Series</p>
+              <p className="text-xs text-slate-400">Video Lesson â€¢ Jawad Naseeb Education Series</p>
             </div>
           </div>
 

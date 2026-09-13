@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ayesha Bibi - Software Engineering Student and Web Developer CV">
+  <title>Ayesha Bibi | CV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="cv-shell">
+    <aside class="sidebar">
+      <div class="portrait-wrap">
+        <img class="portrait" src="profile.jpg" alt="Portrait of Ayesha Bibi" onerror="this.hidden=true; document.querySelector('.portrait-fallback').hidden=false;">
+        <div class="portrait-fallback" hidden>AB</div>
+      </div>
+
+      <section class="sidebar-section contact-section" aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Contact info</h2>
+        <div class="rule"></div>
+        <dl class="contact-list">
+          <div>
+            <dt>Location</dt>
+            <dd>Lahore, Pakistan</dd>
+          </div>
+          <div>
+            <dt>Phone</dt>
+            <dd><a href="tel:+923260426248">+92-326-0426248</a><br><a href="tel:+923211701072">+92-321-1701072</a></dd>
+          </div>
+          <div>
+            <dt>Email</dt>
+            <dd><a href="mailto:ayeshanasi234@gmail.com">ayeshanasi234@gmail.com</a></dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="sidebar-section skills-section" aria-labelledby="skills-heading">
+        <h2 id="skills-heading">Core skills</h2>
+        <ul class="skills-list">
+          <li>Manual &amp; Automation Testing</li>
+          <li>Test Case Design &amp; Execution</li>
+          <li>Functional &amp; Regression Testing</li>
+          <li>Bug Tracking &amp; Reporting (Jira)</li>
+          <li>Web Application Testing</li>
+          <li>Selenium WebDriver &amp; Java</li>
+        </ul>
+      </section>
+
+      <button class="print-button" type="button" id="print-cv" aria-label="Print or save this CV as PDF">Print CV</button>
+    </aside>
+
+    <section class="content">
+      <header class="hero">
+        <p class="eyebrow">Curriculum vitae / 2026</p>
+        <h1>Ayesha Bibi</h1>
+        <p class="role">Software Engineering Student <span>&amp;</span> Web Developer</p>
+      </header>
+
+      <section class="content-section profile-section" aria-labelledby="profile-heading">
+        <h2 id="profile-heading">Professional profile</h2>
+        <div class="section-rule"></div>
+        <p>Detail-oriented Software Engineering student at COMSATS University Islamabad with a strong foundation in software quality assurance. Passionate about ensuring software reliability through systematic testing, defect tracking, and quality control. Seeking an entry-level QA role or internship to apply testing methodologies and analytical skills in agile development environments.</p>
+      </section>
+
+      <section class="content-section" aria-labelledby="education-heading">
+        <h2 id="education-heading">Education</h2>
+        <div class="section-rule"></div>
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="item-heading"><h3>BS Software Engineering</h3><time>2023 &mdash; Present</time></div>
+            <p class="institution">COMSATS University Islamabad <em>(Vehari Campus)</em></p>
+          </article>
+          <article class="timeline-item">
+            <div class="item-heading"><h3>Intermediate (HSC)</h3><time>2022 &mdash; 2023</time></div>
+            <p class="institution">Govt. College for Women, Vehari</p>
+          </article>
+          <article class="timeline-item">
+            <div class="item-heading"><h3>Matriculation (SSC)</h3><time>2020 &mdash; 2021</time></div>
+            <p class="institution">Govt. Girls High School, Vehari</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section projects-section" aria-labelledby="projects-heading">
+        <h2 id="projects-heading">Academic projects</h2>
+        <div class="section-rule"></div>
+        <div class="project-grid">
+          <article class="project">
+            <div class="item-heading"><h3>Ride Booking System</h3><span class="tag">Database &amp; Core Dev</span></div>
+            <ul><li>Architected a comprehensive desktop application featuring custom models and real-time localized ride scheduling parameters.</li><li>Implemented active dynamic structural logs and automated payment verification checks using core relational database management concepts.</li></ul>
+          </article>
+          <article class="project">
+            <div class="item-heading"><h3>Personal Portfolio Website</h3><span class="tag">Web Front-end</span></div>
+            <ul><li>Designed, debugged, and launched an interactive user portfolio utilizing HTML5, CSS3, modern JavaScript, and Bootstrap.</li><li>Achieved flawless mobile responsiveness and performance optimization.</li></ul>
+          </article>
+          <article class="project">
+            <div class="item-heading"><h3>Basic Calculator Application</h3><span class="tag">UI/UX Design</span></div>
+            <ul><li>Engineered a standalone mathematical processing engine built using intuitive algorithmic structures.</li><li>Computed logical arithmetic validation queries on a minimalist interface.</li></ul>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+</body>
+</html>

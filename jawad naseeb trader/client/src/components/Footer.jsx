@@ -115,10 +115,10 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-6 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>© 2026 Jawad Naseeb. All Rights Reserved.</p>
+          <p>Â© 2026 Jawad Naseeb. All Rights Reserved.</p>
           <p className="flex items-center gap-2">
             <span>Jawad Naseeb</span>
-            <span>•</span>
+            <span>â€¢</span>
             <span>Trading & Crypto Education Platform</span>
           </p>
         </div>

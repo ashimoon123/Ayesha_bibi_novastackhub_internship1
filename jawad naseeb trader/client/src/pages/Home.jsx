@@ -24,7 +24,7 @@ const Home = () => {
     { q: 'What is Cryptocurrency?', a: 'Cryptocurrency is a digital or virtual currency that is secured by cryptography, making it nearly impossible to counterfeit or double-spend. Most cryptocurrencies run on decentralized networks using blockchain technology.' },
     { q: 'What is Bitcoin?', a: 'Bitcoin (BTC) is the first and most widely used decentralized digital cryptocurrency, created in 2009 by an anonymous entity named Satoshi Nakamoto. It serves as both a store of value and medium of exchange.' },
     { q: 'What is Blockchain?', a: 'A blockchain is a distributed digital ledger that records transactions across a network of computers. It ensures data immutability, transparency, and security without requiring a central authority.' },
-    { q: 'What is Trading?', a: 'Trading involves buying and selling financial assets—such as cryptocurrencies, stocks, or forex—with the goal of generating profit from price fluctuations.' },
+    { q: 'What is Trading?', a: 'Trading involves buying and selling financial assetsâ€”such as cryptocurrencies, stocks, or forexâ€”with the goal of generating profit from price fluctuations.' },
     { q: 'What is Risk Management?', a: 'Risk management in trading is the practice of identifying, analyzing, and mitigating investment risks. Key tactics include position sizing, stop-loss orders, and maintaining a proper risk-to-reward ratio.' },
     { q: 'What is Technical Analysis?', a: 'Technical analysis is a trading discipline used to evaluate investments and identify trading opportunities by analyzing statistical trends gathered from trading activity, such as price movement and volume.' },
     { q: 'What is Fundamental Analysis?', a: 'Fundamental analysis evaluates an asset by examining related economic, financial, regulatory, and technological factors to measure its intrinsic value.' }
@@ -163,7 +163,7 @@ const Home = () => {
                 <Award className="h-5 w-5" />
               </div>
               <div>
-                <span className="text-xs text-purple-600 font-semibold">{item.publication} • {item.date}</span>
+                <span className="text-xs text-purple-600 font-semibold">{item.publication} â€¢ {item.date}</span>
                 <h4 className="font-bold text-slate-900 text-base mt-1">{item.title}</h4>
                 <p className="text-xs text-slate-500 mt-2 leading-relaxed">{item.desc}</p>
               </div>
@@ -208,7 +208,7 @@ const Home = () => {
           <span className="text-xs font-bold uppercase tracking-wider text-purple-600">Curriculum & Courses</span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900">Explore Our Education Services</h2>
           <p className="text-slate-600 text-sm max-w-2xl mx-auto">
-            Comprehensive modules designed for all experience levels—from absolute beginner to expert technical analyst.
+            Comprehensive modules designed for all experience levelsâ€”from absolute beginner to expert technical analyst.
           </p>
         </div>
 
