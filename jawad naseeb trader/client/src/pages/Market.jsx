@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getMarketData } from '../services/api';
+import { getMarketData, getMarketChart } from '../services/api';
 import CryptoCard from '../components/CryptoCard';
 import Chart from '../components/Chart';
 import Loader from '../components/Loader';
@@ -21,6 +21,8 @@ const Market = () => {
     { id: 'cardano', name: 'Cardano', symbol: 'ada', current_price: 0.38, price_change_percentage_24h: 0.95, high_24h: 0.40, low_24h: 0.36, market_cap: 13500000000, image: 'https://assets.coingecko.com/coins/images/975/large/cardano.png' }
   ];
 
+  const [chartData, setChartData] = useState([]);
+
   const fetchMarket = async () => {
     setLoading(true);
     try {
@@ -37,8 +39,28 @@ const Market = () => {
     }
   };
 
+  const fallbackChartData = Array.from({ length: 24 }).map((_, i) => [
+    Date.now() - (24 - i) * 60 * 60 * 1000,
+    75000 + Math.random() * 5000
+  ]);
+
+  const fetchChart = async () => {
+    try {
+      const { data } = await getMarketChart('bitcoin', 1);
+      if (data && data.prices && data.prices.length > 0) {
+        setChartData(data.prices);
+      } else {
+        setChartData(fallbackChartData);
+      }
+    } catch (err) {
+      console.log('Error fetching chart', err);
+      setChartData(fallbackChartData);
+    }
+  };
+
   useEffect(() => {
     fetchMarket();
+    fetchChart();
   }, []);
 
   const filteredCoins = coins.filter((c) =>
@@ -68,7 +90,11 @@ const Market = () => {
       </div>
 
       {/* Featured Live Chart */}
-      <Chart currentPrice={78738} change24h={3.42} />
+      <Chart 
+        data={chartData} 
+        currentPrice={coins.find(c => c.id === 'bitcoin')?.current_price || 78738} 
+        change24h={coins.find(c => c.id === 'bitcoin')?.price_change_percentage_24h || 3.42} 
+      />
 
       {/* Market Cards Grid Header & Search */}
       <div className="space-y-6">
