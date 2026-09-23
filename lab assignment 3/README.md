@@ -64,3 +64,5 @@ query {
 }
 ```
 This fetches *only* the requested fields, avoiding over-fetching entirely.
+
+![alt text](image.png)
