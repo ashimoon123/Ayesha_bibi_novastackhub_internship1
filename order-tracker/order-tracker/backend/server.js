@@ -1,5 +1,6 @@
 require('dotenv').config();
 const http = require('http');
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const { Server } = require('socket.io');
@@ -23,8 +24,11 @@ const io = new Server(server, {
 app.use(cors({ origin: ALLOWED_ORIGIN }));
 app.use(express.json());
 
+// ---- Serve frontend static files ----
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
+
 // ---- Health check ----
-app.get('/', (req, res) => {
+app.get('/health', (req, res) => {
   res.json({
     service: 'order-tracker-backend',
     status: 'ok',
@@ -54,9 +58,11 @@ registerSocketHandlers(io);
 store.seed();
 
 server.listen(PORT, () => {
-  console.log(`Order Tracker backend listening on port ${PORT}`);
-  console.log(`REST:      http://localhost:${PORT}/api/v1/orders`);
-  console.log(`JSON-RPC:  http://localhost:${PORT}/rpc`);
-  console.log(`SSE:       http://localhost:${PORT}/events`);
-  console.log(`Socket.io: ws://localhost:${PORT}`);
+  console.log(`\n  Order Tracker is running!\n`);
+  console.log(`  Frontend + Backend:  http://localhost:${PORT}`);
+  console.log(`  REST API:            http://localhost:${PORT}/api/v1/orders`);
+  console.log(`  JSON-RPC:            http://localhost:${PORT}/rpc`);
+  console.log(`  SSE:                 http://localhost:${PORT}/events`);
+  console.log(`  Socket.io:           ws://localhost:${PORT}`);
+  console.log(`  Health Check:        http://localhost:${PORT}/health\n`);
 });
