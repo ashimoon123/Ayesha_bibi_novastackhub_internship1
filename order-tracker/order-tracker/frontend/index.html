@@ -1,83 +1,278 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Order Tracker & Live Support</title>
+<title>Order Tracker — Real-Time Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="topbar">
-    <h1>📦 Real-Time Order Tracker & Live Support</h1>
-    <div class="conn-status">
-      <span id="wsStatus" class="badge badge-off">WS: connecting…</span>
-      <span id="sseStatus" class="badge badge-off">SSE: connecting…</span>
+
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <i class="fas fa-box-open brand-icon"></i>
+      <span class="brand-text">OrderTracker</span>
     </div>
-  </header>
+    <nav class="sidebar-nav">
+      <a href="#dashboardSection" class="nav-link active" data-section="dashboardSection">
+        <i class="fas fa-chart-line"></i><span>Dashboard</span>
+      </a>
+      <a href="#ordersSection" class="nav-link" data-section="ordersSection">
+        <i class="fas fa-shopping-cart"></i><span>Orders</span>
+      </a>
+      <a href="#rpcSection" class="nav-link" data-section="rpcSection">
+        <i class="fas fa-cogs"></i><span>Actions</span>
+      </a>
+      <a href="#chatSection" class="nav-link" data-section="chatSection">
+        <i class="fas fa-comments"></i><span>Live Chat</span>
+      </a>
+      <a href="#alertsSection" class="nav-link" data-section="alertsSection">
+        <i class="fas fa-bell"></i><span>Alerts</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <span class="version-tag">v1.0.0</span>
+    </div>
+  </aside>
 
-  <main class="layout">
-    <!-- REST: Catalog + Order creation + Order list -->
-    <section class="panel" id="ordersPanel">
-      <h2>1. Orders (REST API)</h2>
-      <form id="newOrderForm" class="row">
-        <input id="customerName" placeholder="Customer name" required />
-        <select id="itemSelect"></select>
-        <button type="submit">Place Order</button>
-      </form>
-      <ul id="orderList" class="order-list"></ul>
-    </section>
-
-    <!-- JSON-RPC + status -->
-    <section class="panel" id="rpcPanel">
-      <h2>2. Order Actions (JSON-RPC 2.0)</h2>
-      <div class="row">
-        <select id="rpcOrderSelect"></select>
-        <button id="cancelBtn">Cancel Order</button>
-        <button id="statusBtn">Get Status</button>
+  <!-- ===== Main Content ===== -->
+  <div class="main-wrapper">
+    <!-- Top Navbar -->
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+      <div class="topbar-left">
+        <h1 class="page-title" id="pageTitle">Dashboard</h1>
       </div>
-      <pre id="rpcOutput" class="output"></pre>
-      <h3>Simulate progress (REST PATCH)</h3>
-      <div class="row">
-        <select id="progressStatus">
-          <option value="processing">processing</option>
-          <option value="shipped">shipped</option>
-          <option value="delivered">delivered</option>
-        </select>
-        <button id="advanceBtn">Update Status</button>
+      <div class="topbar-right">
+        <div class="conn-badges">
+          <span id="wsStatus" class="badge badge-off"><i class="fas fa-plug"></i> WS</span>
+          <span id="sseStatus" class="badge badge-off"><i class="fas fa-satellite-dish"></i> SSE</span>
+        </div>
+        <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+          <i class="fas fa-moon"></i>
+        </button>
+        <div class="avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
       </div>
-    </section>
+    </header>
 
-    <!-- WebSocket chat -->
-    <section class="panel" id="chatPanel">
-      <h2>3. Live Support Chat (Socket.io)</h2>
-      <div class="row">
-        <select id="chatOrderSelect"></select>
-        <select id="roleSelect">
-          <option value="customer">I am: Customer</option>
-          <option value="support">I am: Support Agent</option>
-        </select>
-        <button id="joinBtn">Join Chat</button>
+    <!-- Content Area -->
+    <div class="content">
+
+      <!-- ===== Dashboard Section ===== -->
+      <section class="section active" id="dashboardSection">
+        <div class="stats-grid">
+          <div class="stat-card stat-total">
+            <div class="stat-icon"><i class="fas fa-clipboard-list"></i></div>
+            <div class="stat-info">
+              <span class="stat-number" id="statTotal">0</span>
+              <span class="stat-label">Total Orders</span>
+            </div>
+          </div>
+          <div class="stat-card stat-revenue">
+            <div class="stat-icon" style="background: rgba(139, 92, 246, 0.15); color: #8B5CF6;"><i class="fas fa-dollar-sign"></i></div>
+            <div class="stat-info">
+              <span class="stat-number" id="statRevenue">$0</span>
+              <span class="stat-label">Total Revenue</span>
+            </div>
+          </div>
+          <div class="stat-card stat-processing">
+            <div class="stat-icon"><i class="fas fa-spinner"></i></div>
+            <div class="stat-info">
+              <span class="stat-number" id="statProcessing">0</span>
+              <span class="stat-label">Processing</span>
+            </div>
+          </div>
+          <div class="stat-card stat-delivered">
+            <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+            <div class="stat-info">
+              <span class="stat-number" id="statDelivered">0</span>
+              <span class="stat-label">Delivered</span>
+            </div>
+          </div>
+        </div>
+        <div class="dashboard-grid">
+          <div class="card recent-orders-card">
+            <div class="card-header">
+              <h3><i class="fas fa-clock"></i> Recent Orders</h3>
+            </div>
+            <div class="card-body">
+              <ul id="recentOrdersList" class="recent-list"></ul>
+            </div>
+          </div>
+          <div class="card activity-card">
+            <div class="card-header">
+              <h3><i class="fas fa-bolt"></i> Live Activity Feed</h3>
+            </div>
+            <div class="card-body">
+              <ul id="activityFeed" class="activity-list"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Orders Section ===== -->
+      <section class="section" id="ordersSection">
+        <div class="card">
+          <div class="card-header">
+            <h3><i class="fas fa-plus-circle"></i> Place New Order</h3>
+          </div>
+          <div class="card-body">
+            <form id="newOrderForm" class="order-form">
+              <div class="form-group">
+                <label for="customerName"><i class="fas fa-user"></i> Customer Name</label>
+                <input id="customerName" placeholder="Enter customer name" required />
+              </div>
+              <div class="form-group">
+                <label for="itemSelect"><i class="fas fa-box"></i> Select Item</label>
+                <select id="itemSelect"></select>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg">
+                <i class="fas fa-paper-plane"></i> Place Order
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="card mt-16">
+          <div class="card-header">
+            <h3><i class="fas fa-list"></i> All Orders</h3>
+            <div class="card-actions">
+              <input id="orderSearch" class="search-input" placeholder="Search orders..." />
+              <select id="statusFilter" class="filter-select">
+                <option value="all">All Statuses</option>
+                <option value="placed">Placed</option>
+                <option value="processing">Processing</option>
+                <option value="shipped">Shipped</option>
+                <option value="delivered">Delivered</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-wrap">
+              <table class="orders-table">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Item</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="orderTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== RPC Actions Section ===== -->
+      <section class="section" id="rpcSection">
+        <div class="actions-grid">
+          <div class="card">
+            <div class="card-header"><h3><i class="fas fa-exchange-alt"></i> Order Actions (JSON-RPC 2.0)</h3></div>
+            <div class="card-body">
+              <div class="form-group">
+                <label><i class="fas fa-hashtag"></i> Select Order</label>
+                <select id="rpcOrderSelect"></select>
+              </div>
+              <div class="btn-group">
+                <button id="statusBtn" class="btn btn-info"><i class="fas fa-info-circle"></i> Get Status</button>
+                <button id="cancelBtn" class="btn btn-danger"><i class="fas fa-ban"></i> Cancel Order</button>
+              </div>
+              <pre id="rpcOutput" class="code-output"></pre>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3><i class="fas fa-forward"></i> Update Order Status</h3></div>
+            <div class="card-body">
+              <div class="form-group">
+                <label><i class="fas fa-tasks"></i> New Status</label>
+                <select id="progressStatus">
+                  <option value="processing">⚙️ Processing</option>
+                  <option value="shipped">🚚 Shipped</option>
+                  <option value="delivered">✅ Delivered</option>
+                </select>
+              </div>
+              <button id="advanceBtn" class="btn btn-primary btn-lg">
+                <i class="fas fa-arrow-right"></i> Update Status
+              </button>
+              <div class="status-timeline" id="statusTimeline"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Chat Section ===== -->
+      <section class="section" id="chatSection">
+        <div class="card chat-card">
+          <div class="card-header">
+            <h3><i class="fas fa-headset"></i> Live Support Chat (Socket.io)</h3>
+            <div class="card-actions">
+              <select id="chatOrderSelect"></select>
+              <select id="roleSelect">
+                <option value="customer">🙋 Customer</option>
+                <option value="support">🎧 Support Agent</option>
+              </select>
+              <button id="joinBtn" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Join</button>
+            </div>
+          </div>
+          <div class="card-body chat-body">
+            <div id="chatLog" class="chat-log"></div>
+            <div class="chat-input-bar">
+              <input id="chatInput" placeholder="Type a message…" disabled />
+              <button id="sendBtn" class="btn btn-primary" disabled>
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Alerts Section ===== -->
+      <section class="section" id="alertsSection">
+        <div class="card">
+          <div class="card-header">
+            <h3><i class="fas fa-bell"></i> Live System Alerts (SSE)</h3>
+            <button class="btn btn-sm btn-outline" id="clearAlertsBtn"><i class="fas fa-trash"></i> Clear</button>
+          </div>
+          <div class="card-body">
+            <ul id="alertsList" class="alerts-list"></ul>
+            <div class="empty-state" id="alertsEmpty">
+              <i class="fas fa-bell-slash"></i>
+              <p>No alerts yet. They will appear here in real-time.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-left">
+        <span>Built with <i class="fas fa-heart" style="color:var(--red)"></i> by Ayesha Bibi</span>
       </div>
-      <div id="chatLog" class="chat-log"></div>
-      <div class="row">
-        <input id="chatInput" placeholder="Type a message…" disabled />
-        <button id="sendBtn" disabled>Send</button>
+      <div class="footer-right">
+        <label>API: <input id="apiBaseInput" class="footer-input" /></label>
+        <button id="saveBaseBtn" class="btn btn-sm btn-outline"><i class="fas fa-save"></i> Save</button>
       </div>
-    </section>
+    </footer>
+  </div>
 
-    <!-- SSE alerts -->
-    <section class="panel" id="alertsPanel">
-      <h2>4. Live System Alerts (SSE)</h2>
-      <ul id="alertsList" class="alerts-list"></ul>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <label>Backend URL: <input id="apiBaseInput" /></label>
-    <button id="saveBaseBtn">Save & Reconnect</button>
-  </footer>
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="config.js"></script>
   <script src="app.js"></script>
 </body>

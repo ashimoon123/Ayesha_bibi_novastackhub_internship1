@@ -179,3 +179,9 @@ directory to `backend` → it auto-detects `npm start`.
 - Add JWT auth so `role` on the socket handshake can't be spoofed.
 - Add a GraphQL endpoint alongside REST for the same resource by wrapping
   `data/store.js` functions as resolvers.
+
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
+![alt text](image-3.png)
+![alt text](image-4.png)
