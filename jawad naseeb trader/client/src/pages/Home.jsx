@@ -42,9 +42,9 @@ const Home = () => {
   ];
 
   const sampleCourses = [
-    { _id: '1', title: 'Complete Crypto & Blockchain Masterclass', category: 'Cryptocurrency Basics', difficulty: 'Beginner', duration: '4.5 hrs', description: 'Everything you need to know about Bitcoin, wallets, security, and market fundamentals.', instructor: 'Jawad Naseeb' },
-    { _id: '2', title: 'Advanced Technical Analysis & Charting', category: 'Technical Analysis', difficulty: 'Advanced', duration: '6 hrs', description: 'Master candlestick patterns, support/resistance, RSI, MACD, and market structure.', instructor: 'Jawad Naseeb' },
-    { _id: '3', title: 'Risk Management & Trading Psychology', category: 'Risk Management', difficulty: 'Intermediate', duration: '3 hrs', description: 'Build a bulletproof trading plan and master risk control to stay profitable.', instructor: 'Jawad Naseeb' }
+    { _id: '1', title: 'Complete Crypto & Blockchain Masterclass', category: 'Cryptocurrency Basics', difficulty: 'Beginner', duration: '4.5 hrs', description: 'Everything you need to know about Bitcoin, wallets, security, and market fundamentals.', instructor: 'Jawad Naseeb', thumbnail: 'https://images.unsplash.com/photo-1621416894569-0f39ed31d247?q=80&w=600&auto=format&fit=crop' },
+    { _id: '2', title: 'Advanced Technical Analysis & Charting', category: 'Technical Analysis', difficulty: 'Advanced', duration: '6 hrs', description: 'Master candlestick patterns, support/resistance, RSI, MACD, and market structure.', instructor: 'Jawad Naseeb', thumbnail: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=600&auto=format&fit=crop' },
+    { _id: '3', title: 'Risk Management & Trading Psychology', category: 'Risk Management', difficulty: 'Intermediate', duration: '3 hrs', description: 'Build a bulletproof trading plan and master risk control to stay profitable.', instructor: 'Jawad Naseeb', thumbnail: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=600&auto=format&fit=crop' }
   ];
 
   return (

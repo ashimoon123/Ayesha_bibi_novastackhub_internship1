@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Order Tracker & Live Support</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>📦 Real-Time Order Tracker & Live Support</h1>
+    <div class="conn-status">
+      <span id="wsStatus" class="badge badge-off">WS: connecting…</span>
+      <span id="sseStatus" class="badge badge-off">SSE: connecting…</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- REST: Catalog + Order creation + Order list -->
+    <section class="panel" id="ordersPanel">
+      <h2>1. Orders (REST API)</h2>
+      <form id="newOrderForm" class="row">
+        <input id="customerName" placeholder="Customer name" required />
+        <select id="itemSelect"></select>
+        <button type="submit">Place Order</button>
+      </form>
+      <ul id="orderList" class="order-list"></ul>
+    </section>
+
+    <!-- JSON-RPC + status -->
+    <section class="panel" id="rpcPanel">
+      <h2>2. Order Actions (JSON-RPC 2.0)</h2>
+      <div class="row">
+        <select id="rpcOrderSelect"></select>
+        <button id="cancelBtn">Cancel Order</button>
+        <button id="statusBtn">Get Status</button>
+      </div>
+      <pre id="rpcOutput" class="output"></pre>
+      <h3>Simulate progress (REST PATCH)</h3>
+      <div class="row">
+        <select id="progressStatus">
+          <option value="processing">processing</option>
+          <option value="shipped">shipped</option>
+          <option value="delivered">delivered</option>
+        </select>
+        <button id="advanceBtn">Update Status</button>
+      </div>
+    </section>
+
+    <!-- WebSocket chat -->
+    <section class="panel" id="chatPanel">
+      <h2>3. Live Support Chat (Socket.io)</h2>
+      <div class="row">
+        <select id="chatOrderSelect"></select>
+        <select id="roleSelect">
+          <option value="customer">I am: Customer</option>
+          <option value="support">I am: Support Agent</option>
+        </select>
+        <button id="joinBtn">Join Chat</button>
+      </div>
+      <div id="chatLog" class="chat-log"></div>
+      <div class="row">
+        <input id="chatInput" placeholder="Type a message…" disabled />
+        <button id="sendBtn" disabled>Send</button>
+      </div>
+    </section>
+
+    <!-- SSE alerts -->
+    <section class="panel" id="alertsPanel">
+      <h2>4. Live System Alerts (SSE)</h2>
+      <ul id="alertsList" class="alerts-list"></ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <label>Backend URL: <input id="apiBaseInput" /></label>
+    <button id="saveBaseBtn">Save & Reconnect</button>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
