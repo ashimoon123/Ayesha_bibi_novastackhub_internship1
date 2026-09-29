@@ -27,6 +27,26 @@ app.use(express.json());
 // ---- Serve frontend static files ----
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
+// ---- JWT Authentication ----
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
+
+app.post('/api/v1/auth/login', (req, res) => {
+  const { role, name } = req.body;
+  const token = jwt.sign({ role: role || 'customer', name: name || 'Guest' }, JWT_SECRET, { expiresIn: '1h' });
+  res.json({ token });
+});
+
+// ---- GraphQL ----
+const { graphqlHTTP } = require('express-graphql');
+const { schema, rootValue } = require('./graphql/schema');
+
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: rootValue,
+  graphiql: true
+}));
+
 // ---- Health check ----
 app.get('/health', (req, res) => {
   res.json({
@@ -34,7 +54,7 @@ app.get('/health', (req, res) => {
     status: 'ok',
     protocols: {
       rest: '/api/v1/orders',
-      graphqlNote: 'REST implementation used (see README for GraphQL notes)',
+      graphql: '/graphql',
       websockets: 'Socket.io on the same origin/port',
       jsonRpc: '/rpc',
       sse: '/events'
@@ -61,6 +81,7 @@ server.listen(PORT, () => {
   console.log(`\n  Order Tracker is running!\n`);
   console.log(`  Frontend + Backend:  http://localhost:${PORT}`);
   console.log(`  REST API:            http://localhost:${PORT}/api/v1/orders`);
+  console.log(`  GraphQL:             http://localhost:${PORT}/graphql`);
   console.log(`  JSON-RPC:            http://localhost:${PORT}/rpc`);
   console.log(`  SSE:                 http://localhost:${PORT}/events`);
   console.log(`  Socket.io:           ws://localhost:${PORT}`);

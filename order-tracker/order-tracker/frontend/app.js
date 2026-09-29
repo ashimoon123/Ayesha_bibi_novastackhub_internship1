@@ -337,27 +337,39 @@ $('statusBtn').addEventListener('click', async () => {
 $('rpcOrderSelect').addEventListener('change', () => renderTimeline(allOrders));
 
 // ===== Socket.io =====
-function connectSocket() {
+async function connectSocket() {
   if (socket) socket.disconnect();
   const role = $('roleSelect').value;
-  socket = io(API_BASE, { query: { role, name: role === 'support' ? 'Support' : 'Customer' } });
+  const name = role === 'support' ? 'Support' : 'Customer';
+  
+  try {
+    const { token } = await apiPost('/api/v1/auth/login', { role, name });
+    
+    socket = io(API_BASE, { auth: { token } });
 
-  socket.on('connect', () => setBadge('wsStatus', true, 'WS'));
-  socket.on('disconnect', () => setBadge('wsStatus', false, 'WS'));
+    socket.on('connect', () => setBadge('wsStatus', true, 'WS'));
+    socket.on('connect_error', (err) => {
+      showToast(`WS Error: ${err.message}`, 'error');
+      setBadge('wsStatus', false, 'WS');
+    });
+    socket.on('disconnect', () => setBadge('wsStatus', false, 'WS'));
 
-  socket.on('systemMessage', (msg) => addChatLine(msg.message, 'system'));
-  socket.on('chatMessage', (msg) => {
-    const cls = msg.role === 'support' ? 'support' : '';
-    addChatLine(`<span class="who">${msg.sender}:</span> ${escapeHtml(msg.message)}`, cls);
-  });
-  socket.on('typing', (t) => {
-    if (t.isTyping) addChatLine(`<em>${t.name} is typing…</em>`, 'system');
-  });
-  socket.on('orderStatusUpdate', (update) => {
-    addAlert(`🔄 Order ${update.orderId.slice(0, 8)} → ${update.status}`);
-    addActivity(`Order #${update.orderId.slice(0,8)} updated to ${update.status}`, 'purple');
-    loadOrders();
-  });
+    socket.on('systemMessage', (msg) => addChatLine(msg.message, 'system'));
+    socket.on('chatMessage', (msg) => {
+      const cls = msg.role === 'support' ? 'support' : '';
+      addChatLine(`<span class="who">${msg.sender}:</span> ${escapeHtml(msg.message)}`, cls);
+    });
+    socket.on('typing', (t) => {
+      if (t.isTyping) addChatLine(`<em>${t.name} is typing…</em>`, 'system');
+    });
+    socket.on('orderStatusUpdate', (update) => {
+      addAlert(`🔄 Order ${update.orderId.slice(0, 8)} → ${update.status}`);
+      addActivity(`Order #${update.orderId.slice(0,8)} updated to ${update.status}`, 'purple');
+      loadOrders();
+    });
+  } catch (err) {
+    showToast('Failed to authenticate WS connection', 'error');
+  }
 }
 
 $('joinBtn').addEventListener('click', () => {
@@ -369,6 +381,10 @@ $('joinBtn').addEventListener('click', () => {
   $('sendBtn').disabled = false;
   addChatLine(`Joined chat room for order #${orderId.slice(0, 8)}`, 'system');
   showToast('Joined chat room', 'info');
+});
+
+$('roleSelect').addEventListener('change', () => {
+  connectSocket();
 });
 
 $('sendBtn').addEventListener('click', sendChat);

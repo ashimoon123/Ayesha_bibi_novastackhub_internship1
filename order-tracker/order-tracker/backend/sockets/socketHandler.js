@@ -7,11 +7,25 @@
  *
  * Events documented fully in README.md.
  */
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
+
 function registerSocketHandlers(io) {
+  io.use((socket, next) => {
+    const token = socket.handshake.auth.token;
+    if (!token) return next(new Error('Authentication error'));
+    
+    jwt.verify(token, JWT_SECRET, (err, decoded) => {
+      if (err) return next(new Error('Authentication error'));
+      socket.data.role = decoded.role;
+      socket.data.name = decoded.name;
+      next();
+    });
+  });
+
   io.on('connection', (socket) => {
-    const { role = 'customer', name = 'Guest' } = socket.handshake.query || {};
-    socket.data.role = role;
-    socket.data.name = name;
+    const role = socket.data.role;
+    const name = socket.data.name;
 
     socket.emit('connected', { socketId: socket.id, role, name });
 
